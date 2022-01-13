@@ -10,7 +10,7 @@ Using this tool, you can
 5) Detect technologies
 ```
 
-![alt text](https://github.com/TKLinux966/Endpoint-Exploiter/blob/main/image.png?raw=true)
+![alt text](https://github.com/TKLinux966/Web_Explorer/blob/main/image.png?raw=true)
 
 ### How to run
 ```
