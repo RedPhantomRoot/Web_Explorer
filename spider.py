@@ -13,42 +13,42 @@ class Spider:
         self.link_list = []
         self.email_address = []
     
-    # Ask users to type URL
+    # Ask a user to type URL
     def ask_url(self):
         url = input("\nType your target URL (e.g. https://google.com/): ")
         if not url.endswith("/"):
             url = url + "/"
         return url
     
-    # Check if typed URL is valid and reacheable   
+    # Check if typed URL is valid and reachable   
     def check_url(self, url):
         try:
             return requests.get(url)
         except:
             raise SystemExit("[-]The URL is not reacheable or invalid.")
     
-    # Check if users type extension or not  
+    # Check if a user types URL with a extension
     def start_bruteforce_checking_extension(self):
         extensions = input("Type extensions you want to check (e.g. .php,.js,.txt): ")
         self.print_partition("Found subdirectories")
-        # When users type nothing. 
+        # When a user type nothing
         # This if statement is necessary because of next elif statement
         if extensions == "":
             self.bruteforce_directory(extensions)
-        # When users forget to put dot(.)
+        # When a user forgets to put dot(.)
         elif not "." in extensions:
             print("You need dot(.) before extension.")
         else:
             self.bruteforce_directory(extensions)    
     
-    # Bruteforce subdirectories with extensions that users type   
+    # Bruteforce subdirectories with extensions
     def bruteforce_directory(self, extensions):
         extension_list = extensions.split(",")
         with open("directory.txt", "r") as file:
             directory_list = file.readlines()
         for directory in directory_list:
             directory = directory.strip()
-            # First time, send directory without extension
+            # First time, send directory without extensions
             try: 
                 r = requests.get(self.url + directory)
                 self.check_directory_found(r, directory)
@@ -56,9 +56,9 @@ class Spider:
                     if not directory.endswith(extension):
                         directory_with_extension = directory + extension
                         # Delete duplicates
-                        # Each word(directory) inside directory_list has newline
+                        # Each word (directory) inside directory_list has newline
                         if not directory_with_extension + "\n" in directory_list:
-                            # Send directory with extension
+                            # Send directory with extensions
                             try: 
                                 r = requests.get(self.url + directory_with_extension)
                                 self.check_directory_found(r, directory_with_extension)
@@ -67,7 +67,7 @@ class Spider:
             except requests.exceptions.ConnectionError:
                 pass
     
-    # Just print out if the directory is found or not
+    # Just print out if the directory is found
     def check_directory_found(self, request, directory):
         # If status code is 200, it's in color
         if not request.status_code == 404 and request.status_code == 200:
@@ -91,11 +91,11 @@ class Spider:
                 # Get rid of links when href has nothing or #something
                 if not link == None and not "#" in link: 
                     link = urljoin(base_url, link)
-                    # Get rid of duplicated links and links when link(url) is not target domain
+                    # Get rid of duplicated links and links when link (url) is not target domain
                     if self.url in link and not link in self.link_list:
                         try:
                             r = requests.get(link)
-                            # Check if this link is reachable
+                            # Check if the link is reachable
                             if not r.status_code == 404:
                                 # Could print links later using self.link_list
                                 print(link)
@@ -111,7 +111,7 @@ class Spider:
     def print_partition(self, string):
         print(f"\n-------------------{string}-------------------\n")
     
-    # Find possible email address while crawling
+    # Find possible email addresses while crawling
     def find_email_address(self, request):
         email_list = re.findall(r'[\w\.-]+@[\w\.-]+', request.text)
         for email in email_list:
@@ -146,7 +146,7 @@ class Spider:
         separated_url = url.split("://")
         return separated_url[0] + "://" + subdomain + "." + separated_url[1]
     
-    # Detect technology used in website
+    # Detect technology used in the website
     def detect_technology(self):
         # Add this because of an error on Mac
         ssl._create_default_https_context = ssl._create_unverified_context
