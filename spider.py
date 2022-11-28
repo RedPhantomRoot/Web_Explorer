@@ -25,10 +25,10 @@ class Spider:
         try:
             return requests.get(url)
         except:
-            raise SystemExit("[-]The URL is not reacheable or invalid.")
+            raise SystemExit("[-] The URL is not reacheable or invalid.")
     
     # Check if a user types URL with a extension
-    def start_bruteforce_checking_extension(self):
+    def invoke_bruteforce(self):
         extensions = input("Type extensions you want to check (e.g. .php,.js,.txt): ")
         self.print_partition("Found subdirectories")
         # When a user type nothing
@@ -37,7 +37,9 @@ class Spider:
             self.bruteforce_directory(extensions)
         # When a user forgets to put dot(.)
         elif not "." in extensions:
-            print("You need dot(.) before extension.")
+            print("[-] You need dot(.) before extension.")
+        elif " " in extensions:
+            print("[-] No space please.")
         else:
             self.bruteforce_directory(extensions)    
     
@@ -91,12 +93,13 @@ class Spider:
                 # Get rid of links when href has nothing or #something
                 if not link == None and not "#" in link: 
                     link = urljoin(base_url, link)
+                    link = link.split("?")[0]
                     # Get rid of duplicated links and links when link (url) is not target domain
                     if self.url in link and not link in self.link_list:
                         try:
                             r = requests.get(link)
                             # Check if the link is reachable
-                            if not r.status_code == 404:
+                            if r.status_code == 200:
                                 # Could print links later using self.link_list
                                 print(link)
                                 self.link_list.append(link)
@@ -113,7 +116,7 @@ class Spider:
     
     # Find possible email addresses while crawling
     def find_email_address(self, request):
-        email_list = re.findall(r'[\w\.-]+@[\w\.-]+', request.text)
+        email_list = re.findall(r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+', request.text)
         for email in email_list:
             # Delete dupicates
             if not email in self.email_address:
