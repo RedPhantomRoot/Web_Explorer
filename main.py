@@ -14,9 +14,9 @@ def introduction():
 ▐░░▌     ▐░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░▌             ▐░░░░░░░░░░░▌▐░▌     ▐░▌▐░▌          ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌
  ▀▀       ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀               ▀▀▀▀▀▀▀▀▀▀▀  ▀       ▀  ▀            ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀ 
         """)
-    print("[*] Declaration: Please use this tool for a domain or website that you are allowed to pentest. "\
+    print("[*] Declaration: Please use this tool for the domain or the website that you are allowed to pentest. "\
        "I am not responsible for any trouble you cause with this tool.")
-    print("[*] If something unexpected happens while using this tool, you can exit by 'Ctrl + c' (you might see weird errors but just ignore it. )\n")
+    print("[*] If something unexpected happens while using this tool, you can exit by 'Ctrl + c' (you might see weird errors but just ignore them. )\n")
 
 if __name__ == "__main__":        
     introduction()
